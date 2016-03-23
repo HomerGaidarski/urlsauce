@@ -12,10 +12,11 @@ class CreateUrlsTable extends Migration
      */
     public function up()
     {
-        Schema::create('urls', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+        Schema::create('urls', function(Blueprint $table) {
+	    $table->increments('id');
+	    $table->timestamps();
+	    $table->string('long_url');
+	});
     }
 
     /**
