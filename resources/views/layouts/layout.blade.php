@@ -1,48 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>@yield('title')</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
+        <title>UrlSauce</title>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <meta name="csrf-token" content="{{ csrf_token() }}" /> <!-- required for ajax to work! -->
     </head>
     <body>
         <div class="container">
-            @include('layouts.menu')
-            <div class="content">
-                @yield('body')
-            </div>
+            @yield('content')
         </div>
-        
-        
     </body>
 </html>

@@ -15,6 +15,6 @@ class PagesController extends Controller
 
     public function getIndex()
     {
-    	return view('welcome');
+    	return view('index');
     }
 }

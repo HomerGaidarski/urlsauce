@@ -1,7 +1,4 @@
 @extends('layouts.layout')
-@section('title')
-	Urls
-@stop
 
 @section('body')
 	@foreach($urls as $url)

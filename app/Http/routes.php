@@ -21,8 +21,24 @@ Route::get('about', [
 		'uses' => 'PagesController@getAbout'
 	]);
 
-//Route::get('url/{id}', 'UserController@indexToUrl');
-Route::resource('url', 'UrlController');
+// store new url
+Route::post('/store', 'UrlController@store');
+
+
+// redirect shorturl to actual long url
+Route::get('/{urlCode}',[
+		'as' => 'urlCode',
+		'uses' => 'UrlController@redirectToUrl'
+]);
+
+/* /K will never be used in a generated url because autoincrementing in mysql always starts from one,
+	which is why K is skipped (K is the first character (0th element) in the character map used for generating shortened urls)
+	I might change the routing in the future for shortened urls so that it is /url/urlcodehere or /u/urlcodehere
+*/
+Route::get('/K/profile', [
+		'as' => 'profile',
+		'uses' => 'UserController@showProfile'
+	]);
 
 /*
 |--------------------------------------------------------------------------

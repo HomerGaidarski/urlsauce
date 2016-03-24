@@ -8,26 +8,32 @@ use App\Http\Requests;
 
 use App\Url;
 
+
 class UrlController extends Controller
 {
-    /*
-                // randomized 0-9, a-z, A-Z
-    static $baseString = 'K3JoDrnZyuCSFhz1RiIjdG4Tf8kYOUg9qcEP0N2b7QtsHmXpA6BwvLWM5xeVla';
-    static $base = strlen($baseString);
-    static $indexToCharMap = str_split($baseString);
-    static $charToIndexMap = array_flip($indexToCharMap);
+    static $baseString;
+    static $base;
+    static $indexToCharMap;
+    static $charToIndexMap;
+
+    // initializes static varibales (must be called in order for other functions to work!!!)
+    public static function init()
+    {
+        self::$baseString = 'K3JoDrnZyuCSFhz1RiIjdG4Tf8kYOUg9qcEP0N2b7QtsHmXpA6BwvLWM5xeVla';
+        self::$base = strlen(UrlController::$baseString);
+        self::$indexToCharMap = str_split(self::$baseString);
+        self::$charToIndexMap = array_flip(self::$indexToCharMap);
+    }
 
     // converts tiny url code to unique index to search in the DB
     public function urlToIndex($url)
     {
-        global $charToIndexMap, $base;
         $result = 0;
         $charArray = str_split($url);
         $length = count($charArray);
-        for ($i = 0; $i < $length; $i++)
-        {
+        for ($i = 0; $i < $length; $i++) {
             $exponent = $length - $i - 1;
-            $result += $charToIndexMap[$charArray[$i]] * pow($base, $exponent);
+            $result += self::$charToIndexMap[$charArray[$i]] * pow(self::$base, $exponent);
         }
         return $result;
     }
@@ -37,19 +43,22 @@ class UrlController extends Controller
     {
         if ($num == 0)
             return 'K';
-        global $indexToCharMap, $base;
         $url = '';
         $i = 0;
-        while ($num != 0)
-        {
-            $remainder = $num % $base;
-            $num =  floor($num / $base);
-            $url = $indexToCharMap[$remainder] . $url;
+        while ($num != 0) {
+            $remainder = $num % self::$base;
+            $num = floor($num / self::$base);
+            $url = self::$indexToCharMap[$remainder] . $url;
             $i++;
         }
         return $url;
     }
-*/
+
+    public function insert($long_url)
+    {
+
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -60,9 +69,7 @@ class UrlController extends Controller
     {
         $urls = Url::all();
 	
-		$url = new Url;
-		$url->long_url = 'aldjfalksjfdklajsfdlk234lk234j234';
-		$url->save();
+
 
         return view('urls.index')->with('urls', $urls);
     }
@@ -74,7 +81,6 @@ class UrlController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -85,7 +91,30 @@ class UrlController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $long_url = $request->long_url;
+        if (filter_var($long_url, FILTER_VALIDATE_URL) === FALSE) {
+            return "NOT VALID URL!";
+        }
+        $url = new Url(['long_url' => $long_url]);
+        $url->save();
+        return $this->indexToUrl($url->id);
+    }
+
+    /* this function is used when the user is using a generated short url
+
+    example: short url is: http://urlsauce.com/z21
+
+    the id from conversion of "z21" is used to find the long url in the db
+
+    the user is redirected to that url
+
+
+    */
+    public function redirectToUrl($urlCode)
+    {
+        $id = self::urlToIndex($urlCode);
+        $url = Url::find($id);
+        return redirect()->away($url->long_url);
     }
 
     /**
@@ -133,3 +162,4 @@ class UrlController extends Controller
         //
     }
 }
+UrlController::init();
