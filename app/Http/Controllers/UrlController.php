@@ -19,7 +19,7 @@ class UrlController extends Controller
     // initializes static varibales (must be called in order for other functions to work!!!)
     public static function init()
     {
-        self::$baseString = 'K3JoDrnZyuCSFhz1RiIjdG4Tf8kYOUg9qcEP0N2b7QtsHmXpA6BwvLWM5xeVla';
+        self::$baseString = 'u3JoDrnZyKCSFhz1RiIjdG4Tf8kYOUg9qcEP0N2b7QtsHmXpA6BwvLWM5xeVla';
         self::$base = strlen(UrlController::$baseString);
         self::$indexToCharMap = str_split(self::$baseString);
         self::$charToIndexMap = array_flip(self::$indexToCharMap);
@@ -42,7 +42,7 @@ class UrlController extends Controller
     public function indexToUrl($num)
     {
         if ($num == 0)
-            return 'K';
+            return 'u';
         $url = '';
         $i = 0;
         while ($num != 0) {
@@ -112,9 +112,17 @@ class UrlController extends Controller
     */
     public function redirectToUrl($urlCode)
     {
-        $id = self::urlToIndex($urlCode);
+        $paths = explode('/', $urlCode);  
+        $id = self::urlToIndex($paths[0]);
         $url = Url::find($id);
-        return redirect()->away($url->long_url);
+        $redirectUrl = $url->long_url;
+        
+        $length = count($paths);
+        if ($length > 1)
+            for ($i = 1; $i < $length; $i++)
+                $redirectUrl .= '/' . $paths[$i];
+        
+        return redirect()->away($redirectUrl);
     }
 
     /**
