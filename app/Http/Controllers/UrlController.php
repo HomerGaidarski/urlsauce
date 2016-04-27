@@ -119,8 +119,14 @@ class UrlController extends Controller
         
         $length = count($paths);
         if ($length > 1)
+        {
+            // prevents double slashes if shortened url ends with /
+            $redirectUrl = rtrim($redirectUrl, '/');
             for ($i = 1; $i < $length; $i++)
+            {
                 $redirectUrl .= '/' . $paths[$i];
+            }
+        }
         
         return redirect()->away($redirectUrl);
     }
