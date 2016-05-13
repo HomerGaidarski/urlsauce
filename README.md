@@ -19,7 +19,9 @@ git reset --hard origin/master
 ```
 
 Configure your .env file
+
 `vim .env`
+
 Change the following lines with your homestead database credentials (if you used the defaults you can skip this step)
 ```
 DB_HOST=127.0.0.1
