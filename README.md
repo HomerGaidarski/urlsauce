@@ -1,7 +1,7 @@
 # urlsauce.com
 A web application developed with Laravel 5.2 that generates shortened urls.
 
-###Installation
+###Installation on Local Machine
 Prerequisites: Laravel homestead empty project installed and configured
 
 Get .git folder into project folder
