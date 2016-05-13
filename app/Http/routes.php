@@ -13,7 +13,7 @@
 
 Route::get('/', [
 		'as' => '/',
-		'uses' => 'PagesController@getIndex'
+		'uses' => 'UrlController@getIndex'
 ]);
 
 Route::get('about', [

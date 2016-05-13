@@ -18,6 +18,28 @@
                 </div>
         </div>
     </div>
+    <br><br>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Short Url</td>
+                <td>Long Url</td>
+            </tr>
+        </thead>
+    <tbody>
+    @if(! is_null($urls))
+        <!-- Display urls from most recent to oldest-->
+        @foreach($urls as $url)
+            <tr>
+                <td>{{ $url->id }}</td>
+                <td><a target="_blank" href="{{ $url->short_url }}">{{ $url->short_url }}</a></td>
+                <td><a target="_blank" href="{{ $url->long_url }}">{{ $url->long_url }}</a></td>
+            </tr>
+        @endforeach
+    @endif
+    </tbody>
+    </table>
 
 
     <script type="text/javascript">
@@ -27,6 +49,7 @@
             }
         });
         $(document).ready(function() {
+
             $('#create').click(function () {
                 var long_url = $('#long_url').val();
 

@@ -16,7 +16,7 @@ class UrlController extends Controller
     static $indexToCharMap;
     static $charToIndexMap;
 
-    // initializes static varibales (must be called in order for other functions to work!!!)
+    // initializes static variables (must be called in order for other functions to work!!!)
     public static function init()
     {
         self::$baseString = 'u3JoDrnZyKCSFhz1RiIjdG4Tf8kYOUg9qcEP0N2b7QtsHmXpA6BwvLWM5xeVla';
@@ -43,15 +43,15 @@ class UrlController extends Controller
     {
         if ($num == 0)
             return 'u';
-        $url = '';
+        $urlCode = '';
         $i = 0;
         while ($num != 0) {
             $remainder = $num % self::$base;
             $num = floor($num / self::$base);
-            $url = self::$indexToCharMap[$remainder] . $url;
+            $urlCode = self::$indexToCharMap[$remainder] . $urlCode;
             $i++;
         }
-        return $url;
+        return $urlCode;
     }
 
     public function insert($long_url)
@@ -68,7 +68,7 @@ class UrlController extends Controller
     public function index()
     {
         $urls = Url::all();
-	
+
 
 
         return view('urls.index')->with('urls', $urls);
@@ -118,7 +118,7 @@ class UrlController extends Controller
         $redirectUrl = $url->long_url;
         
         $length = count($paths);
-        if ($length > 1)
+        if ($length > 1) // user isn't just using url code but extended url path
         {
             // prevents double slashes if shortened url ends with /
             $redirectUrl = rtrim($redirectUrl, '/');
@@ -129,6 +129,22 @@ class UrlController extends Controller
         }
         
         return redirect()->away($redirectUrl);
+    }
+
+
+    public function getIndex(Request $request)
+    {
+        $urlRows = Url::all();
+        $urls = array();
+        foreach ($urlRows->reverse() as $urlRow)
+        {
+            $url = new \stdClass();
+            $url->id = $urlRow->id;
+            $url->short_url = $request->root() . "/" . UrlController::indexToUrl($urlRow->id);
+            $url->long_url = $urlRow->long_url;
+            $urls[] = $url;
+        }
+        return view('index')->with('urls', $urls);
     }
 
     /**
