@@ -25,6 +25,7 @@
                 <td>#</td>
                 <td>Short Url</td>
                 <td>Long Url</td>
+                <td>Num Visits</td>
             </tr>
         </thead>
     <tbody>
@@ -35,6 +36,7 @@
                 <td>{{ $url->id }}</td>
                 <td><a target="_blank" href="{{ $url->short_url }}">{{ $url->short_url }}</a></td>
                 <td><a target="_blank" href="{{ $url->long_url }}">{{ $url->long_url }}</a></td>
+                <td>{{ $url->num_visits }}</td>
             </tr>
         @endforeach
     @endif
@@ -75,6 +77,7 @@
                             }
                             $('#short_url').val(shortUrl);
                             $('#long_url').val(""); // clear long_url so if users accidentally double click, they won't generate 2 urls instead of 1
+
                         }
                     });
                 }

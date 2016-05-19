@@ -115,6 +115,7 @@ class UrlController extends Controller
         $paths = explode('/', $urlCode);  
         $id = self::urlToIndex($paths[0]);
         $url = Url::find($id);
+        $url->increment('num_visits');
         $redirectUrl = $url->long_url;
         
         $length = count($paths);
@@ -142,6 +143,7 @@ class UrlController extends Controller
             $url->id = $urlRow->id;
             $url->short_url = $request->root() . "/" . UrlController::indexToUrl($urlRow->id);
             $url->long_url = $urlRow->long_url;
+            $url->num_visits = $urlRow->num_visits;
             $urls[] = $url;
         }
         return view('index')->with('urls', $urls);
