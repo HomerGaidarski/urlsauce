@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUrlsTable extends Migration
+class AddNumVisitsColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,9 @@ class CreateUrlsTable extends Migration
      */
     public function up()
     {
-        Schema::create('urls', function(Blueprint $table) {
-	    $table->increments('id');
-	    $table->timestamps();
-	    $table->string('long_url');
-        $table->bigInteger('num_visits');
-	});
+        Schema::table('urls', function ($table) {
+	        $table->bigInteger('num_visits');
+	    });
     }
 
     /**
@@ -27,6 +24,8 @@ class CreateUrlsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('urls');
+        Schema::table('urls', function ($table) {
+            $table->dropColumn('num_visits');
+        });
     }
 }
