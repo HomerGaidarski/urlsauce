@@ -13,7 +13,6 @@ sudo mv urlsauce/.git .git
 
 Fetch urlsauce code
 ```
-cd ..
 git fetch --all
 git reset --hard origin/master
 ```
