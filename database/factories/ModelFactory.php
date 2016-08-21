@@ -19,3 +19,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Url::class, function (Faker\Generator $faker) {
+    return [
+        'id' => random_int(1, 999999999),
+        'created_at' => '2016-05-19 05:22:28',
+        'updated_at' => '2016-05-19 05:22:28',
+        'long_url' => str_random(100),
+    ];
+});
