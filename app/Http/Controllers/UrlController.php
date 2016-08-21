@@ -19,7 +19,7 @@ class UrlController extends Controller
     // initializes static variables (must be called in order for other functions to work!!!)
     public static function init()
     {
-        self::$baseString = 'u3JoDrnZyKCSFhz1RiIjdG4Tf8kYOUg9qcEP0N2b7QtsHmXpA6BwvLWM5xeVla';
+        self::$baseString = 'u3JoDrnZyKCSF.hz1RiIjdG4Tf8k-YOU_g9qcEP0N~2b7QtsHmXpA6BwvLWM5xeVla';
         self::$base = strlen(UrlController::$baseString);
         self::$indexToCharMap = str_split(self::$baseString);
         self::$charToIndexMap = array_flip(self::$indexToCharMap);
