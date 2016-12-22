@@ -18,8 +18,10 @@ git reset --hard origin/master
 ```
 
 Configure your .env file
-`cp .env.example .env`
-`vim .env`
+```
+cp .env.example .env
+vim .env
+```
 
 Change the following lines with your homestead database credentials (if you used the defaults you can skip this step)
 ```
