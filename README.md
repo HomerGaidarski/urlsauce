@@ -6,20 +6,19 @@ Prerequisites: Laravel homestead empty project installed and configured
 
 Get .git folder into project folder
 ```
-cd ~/yourEmptyLaravelProjectFolderName
+cd ~/brandNewLaravel5.2Project
 git clone https://github.com/HomerGaidarski/urlsauce
 sudo mv urlsauce/.git .git
 ```
 
 Fetch urlsauce code
 ```
-cd ..
 git fetch --all
 git reset --hard origin/master
 ```
 
 Configure your .env file
-
+`cp .env.example .env`
 `vim .env`
 
 Change the following lines with your homestead database credentials (if you used the defaults you can skip this step)
