@@ -6,7 +6,7 @@ Prerequisites: Laravel homestead empty project installed and configured
 
 Get .git folder into project folder
 ```
-cd ~/brandNewLaravel5.2Project
+cd ~/brandNewEmptyLaravel5.2Project
 git clone https://github.com/HomerGaidarski/urlsauce
 sudo mv urlsauce/.git .git
 ```
