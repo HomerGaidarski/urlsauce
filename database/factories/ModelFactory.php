@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(shortener\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
@@ -20,7 +20,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Url::class, function (Faker\Generator $faker) {
+$factory->define(shortener\Url::class, function (Faker\Generator $faker) {
     return [
         'id' => random_int(1, 999999999),
         'created_at' => '2016-05-19 05:22:28',

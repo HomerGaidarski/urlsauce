@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace shortener\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use shortener\Http\Requests;
 
 class UserController extends Controller
 {

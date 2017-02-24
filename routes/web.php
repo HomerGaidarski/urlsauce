@@ -2,15 +2,19 @@
 
 /*
 |--------------------------------------------------------------------------
-| Routes File
+| Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
+Route::get('/', function () {
+    return view('welcome');
+});
+*/
 Route::get('/', [
 		'as' => '/',
 		'uses' => 'UrlController@getIndex'
@@ -21,8 +25,12 @@ Route::get('about', [
 		'uses' => 'PagesController@getAbout'
 	]);
 
-// store new url
+// store new url NOTE: need to prevent this from being created as a urlcode
 Route::post('/store', 'UrlController@store');
+
+// redirect shorturl to actual long url
+Route::get('/{urlCode?}','UrlController@redirectToUrl')
+    ->where('urlCode', '(.*)');
 
 /* /u will never be used in a generated url because autoincrementing in mysql always starts from one,
 	which is why u is skipped (u is the first character (0th element) in the character map used for generating shortened urls)
@@ -37,25 +45,3 @@ Route::get('/u/{profile}', [
 		'as' => 'profile',
 		'uses' => 'UserController@showProfile'
 	]);
-
-
-// redirect shorturl to actual long url
-Route::get('/{urlCode?}','UrlController@redirectToUrl')
-    ->where('urlCode', '(.*)');
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
-
-Route::group(['middleware' => ['web']], function () {
-    //
-});

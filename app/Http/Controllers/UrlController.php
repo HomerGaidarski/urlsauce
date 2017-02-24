@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace shortener\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use shortener\Http\Requests;
 
-use App\Url;
+use shortener\Url;
 
 
 class UrlController extends Controller
@@ -95,9 +95,11 @@ class UrlController extends Controller
         if (filter_var($long_url, FILTER_VALIDATE_URL) === FALSE) {
             return "NOT VALID URL!";
         }
+		//return $long_url;
         $url = new Url(['long_url' => $long_url]);
-        $url->save();
-        return $this->indexToUrl($url->id);
+		$url->save();
+		//$url = shortener\Url::create(['long_url' => $long_url]);
+		return $this->indexToUrl($url->id);
     }
 
     /* this function is used when the user is using a generated short url

@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 @section('content')
-
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
+
             <h2>Create new short url</h2>
 
                 <div class="input-group">
@@ -45,7 +45,7 @@
 
 
     <script type="text/javascript">
-        $.ajaxSetup({
+		$.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
@@ -59,6 +59,7 @@
                 if (!long_url) {
                 } else {
                     $.ajax({
+					//$.post({
                         type: "POST",
                         url: 'store',
                         data: {'long_url' : long_url},
@@ -82,7 +83,6 @@
                     });
                 }
             });
-
             $('#test').click(function(){
                 var short_url = $('#short_url').val();
                 if (!short_url);
