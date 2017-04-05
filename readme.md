@@ -1,6 +1,8 @@
-#urlsauce.com
+# urlsauce.com
 
 A web application developed with Laravel 5.4 that generates shortened urls.
+
+![github readme image](public/urlsauceLogo.png "Urlsauce Logo")
 
 Installation on Local Machine (This worked when this project used laravel 5.2, may need to change.)
 
