@@ -1,8 +1,14 @@
 @extends('layouts.layout')
 @section('content')
+    <div class="row" style="margin: auto;">
+        <h1 style="text-align: center; font-size: 400%;">Welcome to UrlSauce</h1>
+    </div>
+    <div class="row" style="margin: auto; padding: 15px;">
+        <img style="display: block; margin: 0 auto;" src="{{ asset('urlsauceLogo.png') }}" alt="logo">
+    </div>
+
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-
             <h2>Create new short url</h2>
 
                 <div class="input-group">
