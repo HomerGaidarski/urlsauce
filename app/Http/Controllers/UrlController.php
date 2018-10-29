@@ -114,12 +114,12 @@ class UrlController extends Controller
     */
     public function redirectToUrl($urlCode)
     {
-        $paths = explode('/', $urlCode);  
+        $paths = explode('/', $urlCode);
         $id = self::urlToIndex($paths[0]);
         $url = Url::find($id);
         $url->increment('num_visits');
         $redirectUrl = $url->long_url;
-        
+
         $length = count($paths);
         if ($length > 1) // user isn't just using url code but extended url path
         {
@@ -130,7 +130,7 @@ class UrlController extends Controller
                 $redirectUrl .= '/' . $paths[$i];
             }
         }
-        
+
         return redirect()->away($redirectUrl);
     }
 
