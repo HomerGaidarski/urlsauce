@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
+// login stuff
+Auth::routes();
+
+Route::get('/logout', 'Auth\LoginController@logout');
+
 Route::get('/', [
 		'as' => '/',
 		'uses' => 'UrlController@getIndex'
@@ -45,3 +50,6 @@ Route::get('/u/{profile}', [
 		'as' => 'profile',
 		'uses' => 'UserController@showProfile'
 	]);
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

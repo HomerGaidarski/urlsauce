@@ -25,31 +25,31 @@
         </div>
     </div>
     <br><br>
-    <table class="table">
-        <thead>
-            <tr>
-                <td>#</td>
-                <td>Short Url</td>
-                <td>Long Url</td>
-                <td>Num Visits</td>
-            </tr>
-        </thead>
-    <tbody>
-    @if(! is_null($urls))
-        <!-- Display urls from most recent to oldest-->
-        @foreach($urls as $url)
-            <tr>
-                <td>{{ $url->id }}</td>
-                <td><a target="_blank" href="{{ $url->short_url }}">{{ $url->short_url }}</a></td>
-                <td><a target="_blank" href="{{ $url->long_url }}">{{ $url->long_url }}</a></td>
-                <td>{{ $url->num_visits }}</td>
-            </tr>
-        @endforeach
+    @if(Auth::check() && Auth::user()->id === 1)
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Short Url</td>
+                    <td>Long Url</td>
+                    <td>Num Visits</td>
+                </tr>
+            </thead>
+        <tbody>
+        @if(! is_null($urls))
+            <!-- Display urls from most recent to oldest-->
+            @foreach($urls as $url)
+                <tr>
+                    <td>{{ $url->id }}</td>
+                    <td><a target="_blank" href="{{ $url->short_url }}">{{ $url->short_url }}</a></td>
+                    <td><a target="_blank" href="{{ $url->long_url }}">{{ $url->long_url }}</a></td>
+                    <td>{{ $url->num_visits }}</td>
+                </tr>
+            @endforeach
+        @endif
+        </tbody>
+        </table>
     @endif
-    </tbody>
-    </table>
-
-
     <script type="text/javascript">
 		$.ajaxSetup({
             headers: {
