@@ -25,7 +25,10 @@
         </div>
     </div>
     <br><br>
-    @if(Auth::check() && Auth::user()->id === 1)
+    @if(Auth::check())
+		@php
+			$loggedInUserId = Auth::user()->id
+		@endphp
         <table class="table">
             <thead>
                 <tr>
@@ -39,12 +42,14 @@
         @if(! is_null($urls))
             <!-- Display urls from most recent to oldest-->
             @foreach($urls as $url)
-                <tr>
-                    <td>{{ $url->id }}</td>
-                    <td><a target="_blank" href="{{ $url->short_url }}">{{ $url->short_url }}</a></td>
-                    <td><a target="_blank" href="{{ $url->long_url }}">{{ $url->long_url }}</a></td>
-                    <td>{{ $url->num_visits }}</td>
-                </tr>
+				@if($loggedInUserId === $url->user_id || $loggedInUserId === 1)
+                	<tr>
+                    	<td>{{ $url->id }}</td>
+                    	<td><a target="_blank" href="{{ $url->short_url }}">{{ $url->short_url }}</a></td>
+                    	<td><a target="_blank" href="{{ $url->long_url }}">{{ $url->long_url }}</a></td>
+                    	<td>{{ $url->num_visits }}</td>
+                	</tr>
+				@endif
             @endforeach
         @endif
         </tbody>
@@ -64,11 +69,18 @@
                 // prevent users from entering blank urls
                 if (!long_url) {
                 } else {
+					<?php 
+						$userId = -1;
+						if (Auth::user() !== NULL) {
+							$userId = Auth::user()->id;
+						}
+					?>
+					var user_id = {!! json_encode($userId) !!};
                     $.ajax({
 					//$.post({
                         type: "POST",
                         url: 'store',
-                        data: {'long_url' : long_url},
+                        data: {'long_url' : long_url, 'user_id' : user_id},
                         success: function (data) {
                             console.log(data);
                             var shortUrl;

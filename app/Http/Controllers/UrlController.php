@@ -96,7 +96,11 @@ class UrlController extends Controller
             return "NOT VALID URL!";
         }
 		//return $long_url;
-        $url = new Url(['long_url' => $long_url]);
+		$user_id = $request->user_id;
+		if ($user_id === NULL) {
+			$user_id = -1;
+		}
+        $url = new Url(['long_url' => $long_url, 'user_id' => $user_id]);
 		$url->save();
 		//$url = shortener\Url::create(['long_url' => $long_url]);
 		return $this->indexToUrl($url->id);
@@ -146,6 +150,7 @@ class UrlController extends Controller
             $url->short_url = $request->root() . "/" . UrlController::indexToUrl($urlRow->id);
             $url->long_url = $urlRow->long_url;
             $url->num_visits = $urlRow->num_visits;
+			$url->user_id = $urlRow->user_id;
             $urls[] = $url;
         }
         return view('index')->with('urls', $urls);
